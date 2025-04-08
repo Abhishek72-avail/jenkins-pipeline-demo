@@ -34,7 +34,7 @@ pipeline {
             steps {
                 bat 'docker stop my-app || exit 0'
                 bat 'docker rm my-app || exit 0'
-                bat 'docker run -d -p 3000:3000 --name my-app:latest'
+                bat 'docker run -d -p 3000:3000 --name my-app my-app:latest'
                 echo 'Application deployed'
             }
         }
