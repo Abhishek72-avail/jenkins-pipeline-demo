@@ -25,6 +25,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t my-app:%BUILD_NUMBER% .'
+                bat 'docker images'  // This will show if the image was created successfully
                 echo 'Docker image built'
             }
         }
