@@ -10,30 +10,30 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
                 echo 'Build completed'
             }
         }
         
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
                 echo 'Tests completed'
             }
         }
         
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-app:${BUILD_NUMBER} .'
+                bat 'docker build -t my-app:%BUILD_NUMBER% .'
                 echo 'Docker image built'
             }
         }
         
         stage('Deploy') {
             steps {
-                sh 'docker stop my-app || true'
-                sh 'docker rm my-app || true'
-                sh 'docker run -d -p 3000:3000 --name my-app my-app:${BUILD_NUMBER}'
+                bat 'docker stop my-app || exit 0'
+                bat 'docker rm my-app || exit 0'
+                bat 'docker run -d -p 3000:3000 --name my-app my-app:%BUILD_NUMBER%'
                 echo 'Application deployed'
             }
         }
